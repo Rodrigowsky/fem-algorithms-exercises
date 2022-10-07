@@ -9,6 +9,25 @@ function linearSearch(id, array) {
 
 function binarySearch(id, array) {
   // code goes here
+  let left_limit = 0;
+  let right_limit = array.length;
+
+  while (left_limit <= right_limit) {
+    let middle = Math.floor((left_limit + right_limit) / 2);
+
+    if (array[middle].id === id) {
+      return array[middle];
+    }
+
+    if (array[middle].id > id) {
+      right_limit = array.indexOf(array[middle]) - 1;
+    }
+
+    if (array[middle].id < id) {
+      left_limit = array.indexOf(array[middle]) + 1;
+    }
+  }
+  return -1;
 }
 
 // unit tests
@@ -30,12 +49,12 @@ test.skip("linear search", function () {
       { id: 2, name: "Marc" },
       { id: 51, name: "Chris" },
       lookingFor,
-      { id: 14, name: "Ben" }
+      { id: 14, name: "Ben" },
     ])
   ).toBe(lookingFor);
 });
 
-test.skip("binary search", function () {
+test("binary search", function () {
   const lookingFor = { id: 23, name: "Brian" };
   expect(
     binarySearch(23, [
@@ -52,7 +71,7 @@ test.skip("binary search", function () {
       { id: 19, name: "Marc" },
       { id: 21, name: "Chris" },
       lookingFor,
-      { id: 24, name: "Ben" }
+      { id: 24, name: "Ben" },
     ])
   ).toBe(lookingFor);
 });
